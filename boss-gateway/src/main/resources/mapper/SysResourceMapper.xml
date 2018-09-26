@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clawhub.auth.mapper.SysResourceMapper">
+    <resultMap id="BaseResultMap" type="com.clawhub.auth.entity.SysResource">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="create_operator_id" jdbcType="VARCHAR" property="createOperatorId"/>
+        <result column="create_operator_name" jdbcType="VARCHAR" property="createOperatorName"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="update_operator_id" jdbcType="VARCHAR" property="updateOperatorId"/>
+        <result column="update_operator_name" jdbcType="VARCHAR" property="updateOperatorName"/>
+        <result column="update_time" jdbcType="BIGINT" property="updateTime"/>
+        <result column="is_delete" jdbcType="CHAR" property="isDelete"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="resource_id" jdbcType="VARCHAR" property="resourceId"/>
+        <result column="resource_name" jdbcType="VARCHAR" property="resourceName"/>
+        <result column="resource_type" jdbcType="VARCHAR" property="resourceType"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="permission" jdbcType="VARCHAR" property="permission"/>
+        <result column="parent_id" jdbcType="VARCHAR" property="parentId"/>
+        <result column="parent_ids" jdbcType="VARCHAR" property="parentIds"/>
+        <result column="state" jdbcType="CHAR" property="state"/>
+        <result column="sort" jdbcType="INTEGER" property="sort"/>
+    </resultMap>
+
+    <!--根据权限ID列表获取权限列表 -->
+    <select id="findResourcesByIds" parameterType="java.util.List" resultMap="BaseResultMap">
+        SELECT *
+        FROM t_sys_resource
+        WHERE is_delete = '0'
+        AND state = '0'
+        AND resource_id IN
+        <foreach close=")" collection="resourceIds" index="index" item="resourceId" open="(" separator=",">
+            #{resourceId,jdbcType=VARCHAR}
+        </foreach>
+    </select>
+
+    <!--获取所有权限列表-->
+    <select id="selectAllResource" resultMap="BaseResultMap">
+        SELECT *
+        FROM t_sys_resource
+        WHERE is_delete = '0'
+        AND state = '0'
+        ORDER BY sort ASC
+    </select>
+</mapper>

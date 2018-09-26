@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clawhub.auth.mapper.RoleResourceMapper">
+    <resultMap id="BaseResultMap" type="com.clawhub.auth.entity.RoleResource">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="create_operator_id" jdbcType="VARCHAR" property="createOperatorId"/>
+        <result column="create_operator_name" jdbcType="VARCHAR" property="createOperatorName"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="update_operator_id" jdbcType="VARCHAR" property="updateOperatorId"/>
+        <result column="update_operator_name" jdbcType="VARCHAR" property="updateOperatorName"/>
+        <result column="update_time" jdbcType="BIGINT" property="updateTime"/>
+        <result column="is_delete" jdbcType="CHAR" property="isDelete"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
+        <result column="resource_id" jdbcType="VARCHAR" property="resourceId"/>
+    </resultMap>
+    <!--新增角色资源关系-->
+    <insert id="add">
+        INSERT INTO
+        t_role_resource(id,create_operator_id,create_operator_name,create_time,is_delete,resource_id,role_id)
+        VALUES
+        <foreach collection="resourceIdsMap" index="id" item="resourceId" separator=",">
+            (#{id}, #{roleResource.createOperatorId}, #{roleResource.createOperatorName},
+            #{roleResource.createTime},
+            #{roleResource.isDelete} , #{resourceId}, #{roleResource.roleId})
+        </foreach>
+    </insert>
+    <!--通过角色ID列表批量删除角色资源对应关系-->
+    <update id="batchUpdateForDelByRoleIds">
+        UPDATE t_role_resource
+        SET update_operator_id = #{roleResource.updateOperatorId},
+        update_operator_name = #{roleResource.updateOperatorName},
+        update_time = #{roleResource.updateTime},
+        is_delete = #{roleResource.isDelete}
+        WHERE role_id IN
+        <foreach collection="roleIds" index="index" item="roleId" separator="," open="(" close=")">
+            #{roleId}
+        </foreach>
+    </update>
+    <!--通过资源ID列表批量删除角色资源对应关系-->
+    <update id="batchUpdateForDelByResourceIds">
+        UPDATE t_role_resource
+        SET update_operator_id = #{roleResource.updateOperatorId},
+        update_operator_name = #{roleResource.updateOperatorName},
+        update_time = #{roleResource.updateTime},
+        is_delete = #{roleResource.isDelete}
+        WHERE resource_id IN
+        <foreach collection="resourceIds" index="index" item="resourceId" separator="," open="(" close=")">
+            #{resourceId}
+        </foreach>
+    </update>
+
+    <!--根据角色ID列表获取资源ID列表 -->
+    <select id="findResourceIdsByRoleIds" parameterType="java.util.List" resultType="java.lang.String">
+        select resource_id
+        from t_role_resource
+        where is_delete = '0'
+        and role_id in
+        <foreach close=")" collection="roleIds" index="roleId" item="item" open="(" separator=",">
+            #{roleId,jdbcType=VARCHAR}
+        </foreach>
+    </select>
+</mapper>

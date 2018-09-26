@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clawhub.auth.mapper.UserRoleMapper">
+    <resultMap id="BaseResultMap" type="com.clawhub.auth.entity.UserRole">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="create_operator_id" jdbcType="VARCHAR" property="createOperatorId"/>
+        <result column="create_operator_name" jdbcType="VARCHAR" property="createOperatorName"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="update_operator_id" jdbcType="VARCHAR" property="updateOperatorId"/>
+        <result column="update_operator_name" jdbcType="VARCHAR" property="updateOperatorName"/>
+        <result column="update_time" jdbcType="BIGINT" property="updateTime"/>
+        <result column="is_delete" jdbcType="CHAR" property="isDelete"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
+    </resultMap>
+    <!--用户角色关系插入-->
+    <insert id="add">
+        INSERT INTO
+        t_user_role(id,create_operator_id,create_operator_name,create_time,is_delete,user_id,role_id)
+        VALUES
+        <foreach collection="roleIdsMap" index="id" item="roleId" separator=",">
+            (#{id}, #{userRole.createOperatorId}, #{userRole.createOperatorName}, #{userRole.createTime},
+            #{userRole.isDelete} , #{userRole.userId}, #{roleId})
+        </foreach>
+    </insert>
+    <!--通过userIds批量删除角色用户关系-->
+    <update id="batchUpdateForDelByUserIds">
+        UPDATE t_user_role
+        SET update_operator_id = #{userRole.updateOperatorId},
+        update_operator_name = #{userRole.updateOperatorName},
+        update_time = #{userRole.updateTime},
+        is_delete = #{userRole.isDelete}
+        WHERE user_id IN
+        <foreach collection="userIds" index="index" item="userId" separator="," open="(" close=")">
+            #{userId}
+        </foreach>
+    </update>
+    <!--通过roleIds批量删除角色用户关系-->
+    <update id="batchUpdateForDelByRoleIds">
+        UPDATE t_user_role
+        SET update_operator_id = #{userRole.updateOperatorId},
+        update_operator_name = #{userRole.updateOperatorName},
+        update_time = #{userRole.updateTime},
+        is_delete = #{userRole.isDelete}
+        WHERE role_id IN
+        <foreach collection="roleIds" index="index" item="roleId" separator="," open="(" close=")">
+            #{roleId}
+        </foreach>
+    </update>
+
+    <!-- 根据用户id获取角色ID列表 -->
+    <select id="findRoleIdsByUserId" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT role_id
+        FROM t_user_role
+        WHERE is_delete = '0'
+        AND user_id = #{userId}
+    </select>
+</mapper>

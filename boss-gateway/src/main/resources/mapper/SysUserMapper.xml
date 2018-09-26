@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clawhub.auth.mapper.SysUserMapper">
+    <resultMap id="BaseResultMap" type="com.clawhub.auth.entity.SysUser">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="create_operator_id" jdbcType="VARCHAR" property="createOperatorId"/>
+        <result column="create_operator_name" jdbcType="VARCHAR" property="createOperatorName"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="update_operator_id" jdbcType="VARCHAR" property="updateOperatorId"/>
+        <result column="update_operator_name" jdbcType="VARCHAR" property="updateOperatorName"/>
+        <result column="update_time" jdbcType="BIGINT" property="updateTime"/>
+        <result column="is_delete" jdbcType="CHAR" property="isDelete"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="salt" jdbcType="VARCHAR" property="salt"/>
+        <result column="state" jdbcType="CHAR" property="state"/>
+    </resultMap>
+    <!--删除专用批量更新-->
+    <update id="batchUpdateUserForDel">
+        UPDATE t_sys_user
+        SET update_operator_id = #{sysUser.updateOperatorId},
+        update_operator_name = #{sysUser.updateOperatorName},
+        update_time = #{sysUser.updateTime},
+        is_delete = #{sysUser.isDelete}
+        WHERE user_id IN
+        <foreach collection="userIds" index="index" item="userId" separator="," open="(" close=")">
+            #{userId}
+        </foreach>
+    </update>
+</mapper>

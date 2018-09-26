@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clawhub.auth.mapper.SysRoleMapper">
+    <resultMap id="BaseResultMap" type="com.clawhub.auth.entity.SysRole">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="create_operator_id" jdbcType="VARCHAR" property="createOperatorId"/>
+        <result column="create_operator_name" jdbcType="VARCHAR" property="createOperatorName"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="update_operator_id" jdbcType="VARCHAR" property="updateOperatorId"/>
+        <result column="update_operator_name" jdbcType="VARCHAR" property="updateOperatorName"/>
+        <result column="update_time" jdbcType="BIGINT" property="updateTime"/>
+        <result column="is_delete" jdbcType="CHAR" property="isDelete"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
+        <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+        <result column="state" jdbcType="CHAR" property="state"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+    </resultMap>
+    <!--删除专用批量更新-->
+    <update id="batchUpdateRoleForDel">
+        UPDATE t_sys_role
+        SET update_operator_id = #{sysRole.updateOperatorId},
+        update_operator_name = #{sysRole.updateOperatorName},
+        update_time = #{sysRole.updateTime},
+        is_delete = #{sysRole.isDelete}
+        WHERE role_id IN
+        <foreach collection="roleIds" index="index" item="roleId" separator="," open="(" close=")">
+            #{roleId}
+        </foreach>
+    </update>
+
+
+    <!--根据角色ID列表获取角色名称列表 -->
+    <select id="findRoleNamesByRoleIds" parameterType="java.util.List" resultType="java.lang.String">
+        SELECT role_name
+        FROM t_sys_role
+        WHERE is_delete = '0'
+        AND state = '0'
+        AND role_id IN
+        <foreach close=")" collection="roleIds" index="roleId" item="item" open="(" separator=",">
+            #{roleId,jdbcType=VARCHAR}
+        </foreach>
+    </select>
+
+</mapper>

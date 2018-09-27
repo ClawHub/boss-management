@@ -1,8 +1,11 @@
 package com.clawhub.picbed;//package com.clawhub.boss;
 
+import com.clawhub.picbed.entity.PicBed;
 import com.clawhub.picbed.service.PicBedService;
 import com.clawhub.result.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -44,6 +48,12 @@ public class PicBedController {
             e.printStackTrace();
         }
         return url;
+    }
+
+    @GetMapping("/queryPic/{type}")
+    public String queryPic(@PathVariable String type) {
+        List<PicBed> list = picBedService.queryPic(type);
+        return ResultUtil.getSucc(list);
     }
 
 

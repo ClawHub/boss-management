@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.clawhub.houserenting.main.mapper.PicBedMapper">
+<mapper namespace="com.clawhub.picbed.mapper.PicBedMapper">
     <resultMap id="BaseResultMap" type="com.clawhub.picbed.entity.PicBed">
         <!--
           WARNING - @mbg.generated
@@ -10,4 +10,11 @@
         <result column="type" jdbcType="VARCHAR" property="type"/>
         <result column="desc" jdbcType="VARCHAR" property="desc"/>
     </resultMap>
+    <!--模糊查询图片信息-->
+    <select id="queryPic" resultMap="BaseResultMap">
+        select id,src,type,desc
+        from t_pic_bed
+        where LOCATE(#{type,jdbcType=VARCHAR}, type)>0
+    </select>
+
 </mapper>

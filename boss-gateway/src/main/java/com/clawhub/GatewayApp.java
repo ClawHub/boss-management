@@ -15,7 +15,7 @@ import tk.mybatis.spring.annotation.MapperScan;
  * @taskId <br>
  * @CreateDate 2018/9/3 <br>
  */
-@MapperScan("com.clawhub.auth.mapper")
+@MapperScan("com.clawhub")
 @SpringBootApplication
 @EnableTransactionManagement
 public class GatewayApp {

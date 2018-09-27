@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clawhub.houserenting.main.mapper.PicBedMapper">
+    <resultMap id="BaseResultMap" type="com.clawhub.picbed.entity.PicBed">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="src" jdbcType="VARCHAR" property="src"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="desc" jdbcType="VARCHAR" property="desc"/>
+    </resultMap>
+</mapper>

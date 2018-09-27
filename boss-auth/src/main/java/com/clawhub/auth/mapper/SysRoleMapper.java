@@ -1,7 +1,7 @@
 package com.clawhub.auth.mapper;
 
-import com.clawhub.auth.common.IMapper;
 import com.clawhub.auth.entity.SysRole;
+import com.clawhub.common.IMapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

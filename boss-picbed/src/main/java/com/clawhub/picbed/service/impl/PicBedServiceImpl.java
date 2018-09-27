@@ -1,17 +1,17 @@
 package com.clawhub.picbed.service.impl;
 
+import com.clawhub.picbed.entity.PicBed;
+import com.clawhub.picbed.mapper.PicBedMapper;
 import com.clawhub.picbed.service.PicBedService;
+import com.clawhub.util.FileUtil;
+import com.clawhub.util.IDGenarator;
+import com.clawhub.util.ShellUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.stream.FileImageOutputStream;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Base64;
 import java.util.Map;
 
 @Service
@@ -20,42 +20,38 @@ public class PicBedServiceImpl implements PicBedService {
      * The Path.
      */
     @Value("${pic.bed.path}")
-    private String path;
+    private String picBedPath;
+
     /**
-     * 上传图片
-     *
-     * @param map 图片
-     * @return 图片url
+     * The Pic bed shell path.
      */
+    @Value("${pic.bed.shell.path}")
+    private String picBedShellPath;
+
+    /**
+     * The Pic bed mapper.
+     */
+    @Autowired
+    private PicBedMapper picBedMapper;
+
     @Override
-    public String upload(Map<String, MultipartFile> map) {
+    public String upload(Map<String, MultipartFile> map) throws IOException, InterruptedException {
         MultipartFile multipartFile = map.get("file");
         String originalFilename = multipartFile.getOriginalFilename();
-        try {
-            byte2image(multipartFile.getBytes(), path + originalFilename);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //调用git函数
-
+        String src = "https://raw.githubusercontent.com/wiki/clawhub/pic-bed/pic/" + originalFilename;
+        //写图片
+        FileUtil.byte2image(multipartFile.getBytes(), picBedPath + originalFilename);
+        //上传图片
+        ShellUtil.runShell(picBedShellPath);
         //入库
-
-        return "https://raw.githubusercontent.com/wiki/clawhub/pic-bed/pic/"+originalFilename;
+        PicBed record = new PicBed();
+        record.setId(IDGenarator.getID());
+        record.setSrc(src);
+        record.setType("default");
+        picBedMapper.insert(record);
+        //返回url
+        return src;
     }
 
-    public void byte2image(byte[] data, String path) {
-        if (data.length < 3 || path.equals("")) {
-            return;
-        }
-        try {
-            FileImageOutputStream imageOutput = new FileImageOutputStream(new File(path));
-            imageOutput.write(data, 0, data.length);
-            imageOutput.close();
-            System.out.println("Make Picture success,Please find image in " + path);
-        } catch (Exception ex) {
-            System.out.println("Exception: " + ex);
-            ex.printStackTrace();
-        }
-    }
 
 }

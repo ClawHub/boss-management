@@ -1,4 +1,4 @@
-package com.clawhub.auth.common;
+package com.clawhub.common;
 
 import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.common.MySqlMapper;

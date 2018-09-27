@@ -1,6 +1,7 @@
 package com.clawhub.picbed.service.impl;
 
 import com.clawhub.picbed.service.PicBedService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,6 +17,11 @@ import java.util.Map;
 @Service
 public class PicBedServiceImpl implements PicBedService {
     /**
+     * The Path.
+     */
+    @Value("${pic.bed.path}")
+    private String path;
+    /**
      * 上传图片
      *
      * @param map 图片
@@ -26,7 +32,7 @@ public class PicBedServiceImpl implements PicBedService {
         MultipartFile multipartFile = map.get("file");
         String originalFilename = multipartFile.getOriginalFilename();
         try {
-            byte2image(multipartFile.getBytes(), "D:\\code\\pic-bed.wiki\\pic\\" + originalFilename);
+            byte2image(multipartFile.getBytes(), path + originalFilename);
         } catch (IOException e) {
             e.printStackTrace();
         }

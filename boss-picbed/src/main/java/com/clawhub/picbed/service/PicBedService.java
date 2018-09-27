@@ -28,4 +28,14 @@ public interface PicBedService {
      * @return 图片信息
      */
     List<PicBed> queryPic(String classify);
+
+    /**
+     * 上传图片
+     * @param image
+     * @param title
+     * @param alt
+     * @param classify
+     * @return
+     */
+    String upload(String image, String title, String alt, String classify) throws IOException;
 }

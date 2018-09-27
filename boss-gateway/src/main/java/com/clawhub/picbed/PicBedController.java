@@ -1,5 +1,6 @@
 package com.clawhub.picbed;//package com.clawhub.boss;
 
+import com.alibaba.fastjson.JSONObject;
 import com.clawhub.picbed.entity.PicBed;
 import com.clawhub.picbed.service.PicBedService;
 import com.clawhub.result.ResultUtil;
@@ -38,8 +39,19 @@ public class PicBedController {
         return ResultUtil.getSucc(param);
     }
 
-    @RequestMapping(method = {RequestMethod.POST, RequestMethod.PUT}, value = "/upload/**")
-    public String upload(MultipartHttpServletRequest request) throws IOException {
+    @PostMapping("/upload")
+    public String upload(@RequestBody String param) {
+        JSONObject body = JSONObject.parseObject(param);
+        String image = body.getString("image");
+        String title = body.getString("title");
+        String alt = body.getString("alt");
+        String classify = body.getString("classify");
+        String url = picBedService.upload(image, title, alt, classify);
+        return ResultUtil.getSucc(url);
+    }
+
+    @RequestMapping(method = {RequestMethod.POST, RequestMethod.PUT}, value = "/put/**")
+    public String put(MultipartHttpServletRequest request) throws IOException {
         Map<String, MultipartFile> map = request.getFileMap();
         String url = "";
         try {

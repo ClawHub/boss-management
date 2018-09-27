@@ -24,8 +24,8 @@ public interface PicBedService {
     /**
      * 根据类型获取图片信息
      *
-     * @param type 类型
+     * @param classify 类型
      * @return 图片信息
      */
-    List<PicBed> queryPic(String type);
+    List<PicBed> queryPic(String classify);
 }

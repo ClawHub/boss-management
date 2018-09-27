@@ -48,15 +48,17 @@ public class PicBedServiceImpl implements PicBedService {
         PicBed record = new PicBed();
         record.setId(IDGenarator.getID());
         record.setSrc(src);
-        record.setType("default");
+        record.setClassify("default");
+        record.setName(originalFilename);
+        record.setRemark("this is pic");
         picBedMapper.insert(record);
         //返回url
         return src;
     }
 
     @Override
-    public List<PicBed> queryPic(String type) {
-        return picBedMapper.queryPic(type);
+    public List<PicBed> queryPic(String classify) {
+        return picBedMapper.queryPic(classify);
     }
 
 

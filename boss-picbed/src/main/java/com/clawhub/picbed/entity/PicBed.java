@@ -19,12 +19,17 @@ public class PicBed {
     /**
      * 类型
      */
-    private String type;
+    private String classify;
 
     /**
      * 描述
      */
-    private String desc;
+    private String remark;
+
+    /**
+     * 姓名
+     */
+    private String name;
 
     /**
      * 获取id
@@ -65,36 +70,54 @@ public class PicBed {
     /**
      * 获取类型
      *
-     * @return type - 类型
+     * @return classify - 类型
      */
-    public String getType() {
-        return type;
+    public String getClassify() {
+        return classify;
     }
 
     /**
      * 设置类型
      *
-     * @param type 类型
+     * @param classify 类型
      */
-    public void setType(String type) {
-        this.type = type;
+    public void setClassify(String classify) {
+        this.classify = classify;
     }
 
     /**
      * 获取描述
      *
-     * @return desc - 描述
+     * @return remark - 描述
      */
-    public String getDesc() {
-        return desc;
+    public String getRemark() {
+        return remark;
     }
 
     /**
      * 设置描述
      *
-     * @param desc 描述
+     * @param remark 描述
      */
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets name.
+     *
+     * @param name the name
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 }

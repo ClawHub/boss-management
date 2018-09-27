@@ -7,14 +7,15 @@
         -->
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="src" jdbcType="VARCHAR" property="src"/>
-        <result column="type" jdbcType="VARCHAR" property="type"/>
-        <result column="desc" jdbcType="VARCHAR" property="desc"/>
+        <result column="classify" jdbcType="VARCHAR" property="classify"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
     </resultMap>
     <!--模糊查询图片信息-->
     <select id="queryPic" resultMap="BaseResultMap">
-        select id,src,type,desc
+        select *
         from t_pic_bed
-        where LOCATE(#{type,jdbcType=VARCHAR}, type)>0
+        where LOCATE(#{classify,jdbcType=VARCHAR}, classify)>0
     </select>
 
 </mapper>

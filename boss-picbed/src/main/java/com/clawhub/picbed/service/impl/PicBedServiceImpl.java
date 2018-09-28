@@ -3,15 +3,15 @@ package com.clawhub.picbed.service.impl;
 import com.clawhub.picbed.entity.PicBed;
 import com.clawhub.picbed.mapper.PicBedMapper;
 import com.clawhub.picbed.service.PicBedService;
-import com.clawhub.util.FileUtil;
 import com.clawhub.util.IDGenarator;
 import com.clawhub.util.ShellUtil;
+import com.clawhub.util.image.ImageBean;
+import com.clawhub.util.image.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
@@ -43,7 +43,7 @@ public class PicBedServiceImpl implements PicBedService {
         String originalFilename = multipartFile.getOriginalFilename();
         String src = "https://raw.githubusercontent.com/wiki/clawhub/pic-bed/pic/" + originalFilename;
         //写图片
-        FileUtil.byte2image(multipartFile.getBytes(), picBedPath + originalFilename);
+        ImageUtil.byte2image(multipartFile.getBytes(), picBedPath + originalFilename);
         //上传图片
         ShellUtil.runShell(picBedShellPath);
         //入库
@@ -70,11 +70,9 @@ public class PicBedServiceImpl implements PicBedService {
         //base64解密
         byte[] bytes = Base64.getDecoder().decode(image);
         //写大图片
-        FileUtil.byte2image(bytes, picBedPath + title);
+        ImageUtil.byte2image(bytes, picBedPath + title);
         //写小图片处理
-        BufferedImage bi = FileUtil.resizeImage(bytes, msrc, 240);
-        float width = bi.getWidth(); // 像素
-        float height = bi.getHeight(); // 像素
+        ImageBean imageBean = ImageUtil.resizeImage(bytes, msrc, 240);
         //入库
         PicBed record = new PicBed();
         record.setAlt(alt);
@@ -83,8 +81,8 @@ public class PicBedServiceImpl implements PicBedService {
         record.setSrc(src);
         record.setId(IDGenarator.getID());
         record.setMsrc(msrc);
-        record.setW((int) width);
-        record.setH((int) height);
+        record.setW((int) imageBean.getWidth());
+        record.setH((int) imageBean.getHeight());
         picBedMapper.insert(record);
         return src;
     }

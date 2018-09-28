@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @taskId <br>
  * @CreateDate 2018 -09-10 <br>
  */
-@ControllerAdvice
+//@ControllerAdvice
 public class ExceptionHandle {
 
     /**

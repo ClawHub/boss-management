@@ -1,4 +1,4 @@
-package com.clawhub.util;
+package com.clawhub.util.image;
 
 import javax.imageio.ImageIO;
 import javax.imageio.stream.FileImageOutputStream;
@@ -9,15 +9,14 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * <Description> 文件工具<br>
+ * <Description> 图片工具<br>
  *
  * @author LiZhiming<br>
  * @version 1.0<br>
  * @taskId <br>
- * @CreateDate 2018/9/27 <br>
+ * @CreateDate 2018/9/28 <br>
  */
-public class FileUtil {
-
+public class ImageUtil {
     /**
      * Byte 2 image.
      *
@@ -42,10 +41,10 @@ public class FileUtil {
      * @param bytes     源图片字节
      * @param desPath   修改大小后图片路径
      * @param scaleSize 图片的修改比例，目标宽度
-     * @return the buffered image
+     * @return ImageBean
      * @throws IOException the io exception
      */
-    public static BufferedImage resizeImage(byte[] bytes, String desPath, int scaleSize) throws IOException {
+    public static ImageBean resizeImage(byte[] bytes, String desPath, int scaleSize) throws IOException {
         BufferedImage bi = ImageIO.read(new ByteArrayInputStream(bytes));
         float width = bi.getWidth(); // 像素
         float height = bi.getHeight(); // 像素
@@ -55,6 +54,6 @@ public class FileUtil {
         buffImg.getGraphics().drawImage(
                 bi.getScaledInstance(scaleSize, (int) (height / scale), Image.SCALE_SMOOTH), 0, 0, null);
         ImageIO.write(buffImg, "JPEG", new File(desPath));
-        return bi;
+        return new ImageBean(width, height, desPath);
     }
 }

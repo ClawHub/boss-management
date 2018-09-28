@@ -72,7 +72,7 @@ public class PicBedServiceImpl implements PicBedService {
         //写大图片
         ImageUtil.byte2image(bytes, picBedPath + title);
         //写小图片处理
-        ImageBean imageBean = ImageUtil.resizeImage(bytes, msrc, 240);
+        ImageBean imageBean = ImageUtil.resizeImage(bytes, picBedPath + "/small/" + title, 240);
         //入库
         PicBed record = new PicBed();
         record.setAlt(alt);
@@ -85,6 +85,11 @@ public class PicBedServiceImpl implements PicBedService {
         record.setH((int) imageBean.getHeight());
         picBedMapper.insert(record);
         return src;
+    }
+
+    @Override
+    public String rereshPicBed() throws IOException, InterruptedException {
+        return ShellUtil.runShell(picBedShellPath);
     }
 
 }

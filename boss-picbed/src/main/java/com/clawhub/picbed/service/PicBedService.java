@@ -39,4 +39,11 @@ public interface PicBedService {
      * @return 图片地址
      */
     String upload(String image, String title, String alt, String tags) throws IOException;
+
+    /**
+     * 刷新图床
+     *
+     * @return 进度
+     */
+    String rereshPicBed() throws IOException, InterruptedException;
 }

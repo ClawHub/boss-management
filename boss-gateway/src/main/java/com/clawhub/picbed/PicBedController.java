@@ -67,12 +67,22 @@ public class PicBedController {
         return url;
     }
 
-    @GetMapping("/queryPic/{type}")
-    public String queryPic(@PathVariable String type) {
-        List<PicBed> list = picBedService.queryPic(type);
+    @GetMapping("/queryPic/{tags}")
+    public String queryPic(@PathVariable String tags) {
+        List<PicBed> list = picBedService.queryPic(tags);
         return ResultUtil.getSucc(list);
     }
 
+    @GetMapping("/rereshPicBed")
+    public String rereshPicBed() {
+        String res = null;
+        try {
+            res = picBedService.rereshPicBed();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return ResultUtil.getSucc(res);
+    }
 
     /**
      * Welcome string.

@@ -2,20 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.clawhub.picbed.mapper.PicBedMapper">
     <resultMap id="BaseResultMap" type="com.clawhub.picbed.entity.PicBed">
-        <!--
-          WARNING - @mbg.generated
-        -->
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="src" jdbcType="VARCHAR" property="src"/>
-        <result column="classify" jdbcType="VARCHAR" property="classify"/>
-        <result column="remark" jdbcType="VARCHAR" property="remark"/>
-        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="tags" jdbcType="VARCHAR" property="tags"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="alt" jdbcType="VARCHAR" property="alt"/>
+        <result column="msrc" jdbcType="VARCHAR" property="msrc"/>
+        <result column="w" jdbcType="INTEGER" property="w"/>
+        <result column="h" jdbcType="INTEGER" property="h"/>
     </resultMap>
     <!--模糊查询图片信息-->
     <select id="queryPic" resultMap="BaseResultMap">
         select *
         from t_pic_bed
-        where LOCATE(#{classify,jdbcType=VARCHAR}, classify)>0
+        where LOCATE(#{tags,jdbcType=VARCHAR}, tags)>0
     </select>
 
 </mapper>

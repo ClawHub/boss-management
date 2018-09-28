@@ -22,20 +22,21 @@ public interface PicBedService {
     String upload(Map<String, MultipartFile> map) throws IOException, InterruptedException;
 
     /**
-     * 根据类型获取图片信息
+     * 根据标签获取图片信息
      *
-     * @param classify 类型
+     * @param tags 标签
      * @return 图片信息
      */
-    List<PicBed> queryPic(String classify);
+    List<PicBed> queryPic(String tags);
 
     /**
      * 上传图片
-     * @param image
-     * @param title
-     * @param alt
-     * @param classify
-     * @return
+     *
+     * @param image 图片base64
+     * @param title 标题
+     * @param alt   图片替换文字
+     * @param tags  标签
+     * @return 图片地址
      */
-    String upload(String image, String title, String alt, String classify) throws IOException;
+    String upload(String image, String title, String alt, String tags) throws IOException;
 }

@@ -45,8 +45,13 @@ public class PicBedController {
         String image = body.getString("image");
         String title = body.getString("title");
         String alt = body.getString("alt");
-        String classify = body.getString("classify");
-        String url = picBedService.upload(image, title, alt, classify);
+        String tags = body.getString("tags");
+        String url = null;
+        try {
+            url = picBedService.upload(image, title, alt, tags);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return ResultUtil.getSucc(url);
     }
 

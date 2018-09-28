@@ -12,24 +12,39 @@ public class PicBed {
     private String id;
 
     /**
-     * 图片路径
+     * 大图片路径
      */
     private String src;
 
     /**
-     * 类型
+     * 标签
      */
-    private String classify;
+    private String tags;
 
     /**
-     * 描述
+     * 标题
      */
-    private String remark;
+    private String title;
 
     /**
-     * 姓名
+     * 图片替换文字
      */
-    private String name;
+    private String alt;
+
+    /**
+     * 小图片路径
+     */
+    private String msrc;
+
+    /**
+     * 源图片宽度
+     */
+    private Integer w;
+
+    /**
+     * 源图片高度
+     */
+    private Integer h;
 
     /**
      * 获取id
@@ -50,74 +65,128 @@ public class PicBed {
     }
 
     /**
-     * 获取图片路径
+     * 获取大图片路径
      *
-     * @return src - 图片路径
+     * @return src - 大图片路径
      */
     public String getSrc() {
         return src;
     }
 
     /**
-     * 设置图片路径
+     * 设置大图片路径
      *
-     * @param src 图片路径
+     * @param src 大图片路径
      */
     public void setSrc(String src) {
         this.src = src;
     }
 
     /**
-     * 获取类型
+     * 获取标签
      *
-     * @return classify - 类型
+     * @return tags - 标签
      */
-    public String getClassify() {
-        return classify;
+    public String getTags() {
+        return tags;
     }
 
     /**
-     * 设置类型
+     * 设置标签
      *
-     * @param classify 类型
+     * @param tags 标签
      */
-    public void setClassify(String classify) {
-        this.classify = classify;
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 
     /**
-     * 获取描述
+     * 获取标题
      *
-     * @return remark - 描述
+     * @return title - 标题
      */
-    public String getRemark() {
-        return remark;
+    public String getTitle() {
+        return title;
     }
 
     /**
-     * 设置描述
+     * 设置标题
      *
-     * @param remark 描述
+     * @param title 标题
      */
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     /**
-     * Gets name.
+     * 获取图片替换文字
      *
-     * @return the name
+     * @return alt - 图片替换文字
      */
-    public String getName() {
-        return name;
+    public String getAlt() {
+        return alt;
     }
 
     /**
-     * Sets name.
+     * 设置图片替换文字
      *
-     * @param name the name
+     * @param alt 图片替换文字
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setAlt(String alt) {
+        this.alt = alt;
+    }
+
+    /**
+     * 获取小图片路径
+     *
+     * @return msrc - 小图片路径
+     */
+    public String getMsrc() {
+        return msrc;
+    }
+
+    /**
+     * 设置小图片路径
+     *
+     * @param msrc 小图片路径
+     */
+    public void setMsrc(String msrc) {
+        this.msrc = msrc;
+    }
+
+    /**
+     * 获取源图片宽度
+     *
+     * @return w - 源图片宽度
+     */
+    public Integer getW() {
+        return w;
+    }
+
+    /**
+     * 设置源图片宽度
+     *
+     * @param w 源图片宽度
+     */
+    public void setW(Integer w) {
+        this.w = w;
+    }
+
+    /**
+     * 获取源图片高度
+     *
+     * @return h - 源图片高度
+     */
+    public Integer getH() {
+        return h;
+    }
+
+    /**
+     * 设置源图片高度
+     *
+     * @param h 源图片高度
+     */
+    public void setH(Integer h) {
+        this.h = h;
     }
 }

@@ -11,8 +11,8 @@ public interface PicBedMapper extends IMapper<PicBed> {
     /**
      * 模糊查询图片信息
      *
-     * @param classify 类型
+     * @param tags 标签
      * @return 图片信息
      */
-    List<PicBed> queryPic(@Param("classify") String classify);
+    List<PicBed> queryPic(@Param("tags") String tags);
 }

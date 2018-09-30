@@ -38,14 +38,13 @@ public class BlogServiceImpl implements BlogService {
     private String blogShellPath;
 
     @Override
-    public void submit(String author, String title, String subtitle, List<String> tags, String content, String headerImg,String displayTime) throws IOException {
+    public void submit(String author, String title, String subtitle, List<String> tags, String content, String headerImg, String displayTime) throws IOException {
+
         //博客文件名
         String blogFileName = new StringBuffer()
-                .append(displayTime)
+                .append(LocalDateTime.parse(displayTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
                 .append("-")
                 .append(title)
-                .append("-")
-                .append(subtitle)
                 .append(".markdown").toString();
         //文章模板读取
         InputStream inputStream = this.getClass().getResourceAsStream("/template/yyyy-MM-dd-title-subtitle.markdown");
@@ -68,5 +67,6 @@ public class BlogServiceImpl implements BlogService {
     public String refreshBlog() throws IOException, InterruptedException {
         return ShellUtil.runShell(blogShellPath);
     }
+
 
 }

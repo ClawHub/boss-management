@@ -37,8 +37,9 @@ public class BlogController {
         String subtitle = body.getString("subtitle");
         List<String> tags = body.getJSONArray("tags").toJavaList(String.class);
         String content = body.getString("content");
+        String displayTime = body.getString("displayTime");
         try {
-            blogService.submit(author, title, subtitle, tags, content, headerImg);
+            blogService.submit(author, title, subtitle, tags, content, headerImg, displayTime);
         } catch (IOException e) {
             e.printStackTrace();
         }

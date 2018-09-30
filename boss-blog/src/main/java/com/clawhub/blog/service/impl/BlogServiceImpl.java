@@ -38,11 +38,10 @@ public class BlogServiceImpl implements BlogService {
     private String blogShellPath;
 
     @Override
-    public void submit(String author, String title, String subtitle, List<String> tags, String content, String headerImg) throws IOException {
-        LocalDateTime now = LocalDateTime.now();
+    public void submit(String author, String title, String subtitle, List<String> tags, String content, String headerImg,String displayTime) throws IOException {
         //博客文件名
         String blogFileName = new StringBuffer()
-                .append(now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                .append(displayTime)
                 .append("-")
                 .append(title)
                 .append("-")
@@ -53,15 +52,13 @@ public class BlogServiceImpl implements BlogService {
         byte[] bytes = new byte[inputStream.available()];
         inputStream.read(new byte[inputStream.available()]);
         String str = new String(bytes);
-        //日期格式化
-        String data = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
         StringBuilder tagStr = new StringBuilder();
         String shortLine = "- ";
         for (String tag : tags) {
             tagStr.append(shortLine).append(tag).append("\r\n");
         }
         //内容拼接
-        content = MessageFormat.format(str, title, subtitle, data, author, headerImg, tagStr.toString(), content);
+        content = MessageFormat.format(str, title, subtitle, displayTime, author, headerImg, tagStr.toString(), content);
         //写文件
         Path dsc = Paths.get(fileDesPath + blogFileName);
         Files.write(dsc, content.getBytes("utf-8"));

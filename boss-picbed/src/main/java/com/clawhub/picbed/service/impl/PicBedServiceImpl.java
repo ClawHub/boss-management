@@ -88,7 +88,7 @@ public class PicBedServiceImpl implements PicBedService {
     }
 
     @Override
-    public String rereshPicBed() throws IOException, InterruptedException {
+    public String refreshPicBed() throws IOException, InterruptedException {
         return ShellUtil.runShell(picBedShellPath);
     }
 

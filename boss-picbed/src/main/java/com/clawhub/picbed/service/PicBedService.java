@@ -45,5 +45,5 @@ public interface PicBedService {
      *
      * @return 进度
      */
-    String rereshPicBed() throws IOException, InterruptedException;
+    String refreshPicBed() throws IOException, InterruptedException;
 }

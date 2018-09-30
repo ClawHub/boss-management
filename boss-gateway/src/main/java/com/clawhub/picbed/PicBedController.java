@@ -73,11 +73,11 @@ public class PicBedController {
         return ResultUtil.getSucc(list);
     }
 
-    @GetMapping("/rereshPicBed")
-    public String rereshPicBed() {
+    @GetMapping("/refreshPicBed")
+    public String refreshPicBed() {
         String res = null;
         try {
-            res = picBedService.rereshPicBed();
+            res = picBedService.refreshPicBed();
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }

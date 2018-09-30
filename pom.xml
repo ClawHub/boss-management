@@ -17,6 +17,7 @@
         <module>boss-gateway</module>
         <module>boss-auth</module>
         <module>boss-picbed</module>
+        <module>boss-blog</module>
     </modules>
     <properties>
         <!-- 文件拷贝时的编码 -->

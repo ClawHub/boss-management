@@ -23,4 +23,8 @@ public class PasswordGenarator {
         SimpleHash obj = new SimpleHash("MD5", source, salt, hashIteration);
         return obj.toString();
     }
+
+    public static void main(String[] args) {
+        System.out.println(PasswordGenarator.getPassword("123456", "clawhub", 2));
+    }
 }

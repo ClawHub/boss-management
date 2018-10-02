@@ -46,12 +46,12 @@ public class BlogServiceImpl implements BlogService {
                 .append(title)
                 .append(".markdown").toString();
         //文章模板读取
-        InputStream inputStream = this.getClass().getResourceAsStream("/template/yyyy-MM-dd-title-subtitle.markdown");
+        InputStream inputStream = this.getClass().getResourceAsStream("/template/yyyy-MM-dd-title.markdown");
         byte[] bytes = new byte[inputStream.available()];
         inputStream.read(bytes);
         String str = new String(bytes);
         StringBuilder tagStr = new StringBuilder();
-        String shortLine = "- ";
+        String shortLine = "    - ";
         for (String tag : tags) {
             tagStr.append(shortLine).append(tag).append("\r\n");
         }

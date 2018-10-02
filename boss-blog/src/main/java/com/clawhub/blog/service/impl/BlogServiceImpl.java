@@ -39,7 +39,6 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public void submit(String author, String title, String subtitle, List<String> tags, String content, String headerImg, String displayTime) throws IOException {
-
         //博客文件名
         String blogFileName = new StringBuffer()
                 .append(LocalDateTime.parse(displayTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
@@ -49,7 +48,7 @@ public class BlogServiceImpl implements BlogService {
         //文章模板读取
         InputStream inputStream = this.getClass().getResourceAsStream("/template/yyyy-MM-dd-title-subtitle.markdown");
         byte[] bytes = new byte[inputStream.available()];
-        inputStream.read(new byte[inputStream.available()]);
+        inputStream.read(bytes);
         String str = new String(bytes);
         StringBuilder tagStr = new StringBuilder();
         String shortLine = "- ";
